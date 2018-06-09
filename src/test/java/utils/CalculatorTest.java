@@ -2,54 +2,58 @@ package utils;
 
 import org.junit.Test;
 
-import java.util.Calendar;
-
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class CalculatorTest {
 
     private Calculator calculator = new Calculator();
-    private static String ADDITION_EXPRESSION = "-1 + 1";
-    private static String SUBTRACTION_EXPRESSION = "5 - 2";
-    private static String MULTIPLICATION_EXPRESSION = "5 * 2";
-    private static String DIVISION_EXPRESSION = "6 / 3";
-    private static String INFINITY_EXPRESSION = "1 / 0";
-    private static String EXSCESS_SIGN_EXPRESSION = "6 / / 3";
-    private static String EMPTY_EXPRESSION = "";
+    private static final String ADDITION_EXPRESSION = "1 + 1";
+    private static final String SUBTRACTION_EXPRESSION = "5 - 2";
+    private static final String MULTIPLICATION_EXPRESSION = "5 * 2";
+    private static final String DIVISION_EXPRESSION = "6 / 3";
+    private static final String INFINITY_EXPRESSION = "1 / 0";
+    private static final String EXCESS_SIGN_EXPRESSION = "6 / / 3";
+    private static final String EMPTY_EXPRESSION = "";
     private static final double DELTA = 1e-15;
 
     @Test
     public void calculateAddition() {
-        assertEquals(0.0,calculator.calculate(ADDITION_EXPRESSION),DELTA);
+        assertEquals(2.0, calculator.calculate(ADDITION_EXPRESSION), DELTA);
     }
 
     @Test
     public void calculateSubtraction() {
-        assertEquals(3.0,calculator.calculate(SUBTRACTION_EXPRESSION),DELTA);
+        assertThat(calculator.calculate(SUBTRACTION_EXPRESSION), is(equalTo(3.0)));
+
     }
 
     @Test
     public void calculateMultiplication() {
-        assertEquals(10.0,calculator.calculate(MULTIPLICATION_EXPRESSION),DELTA);
+        assertThat(calculator.calculate(MULTIPLICATION_EXPRESSION), is(equalTo(10.0)));
+
     }
 
     @Test
     public void calculateDivision() {
-        assertEquals(2.0,calculator.calculate(DIVISION_EXPRESSION),DELTA);
+        assertThat(calculator.calculate(DIVISION_EXPRESSION), is(equalTo(2.0)));
+
     }
 
     @Test
-    public void calculateInfinity(){
-        assertTrue(Double.isInfinite(calculator.calculate(INFINITY_EXPRESSION)));
+    public void calculateInfinity() {
+        assertThat((Double.isInfinite(calculator.calculate(INFINITY_EXPRESSION))), is(equalTo(true)));
+
     }
 
     @Test
-    public void calculateExcessSign(){
-        assertEquals(0.0,calculator.calculate(EXSCESS_SIGN_EXPRESSION),DELTA);
+    public void calculateExcessSign() {
+        assertThat(calculator.calculate(EXCESS_SIGN_EXPRESSION), is(equalTo(0.0)));
     }
 
     @Test
-    public void calculateEmptyExpression(){
-        assertEquals(0.0,calculator.calculate(EMPTY_EXPRESSION),DELTA);
+    public void calculateEmptyExpression() {
+        assertThat(calculator.calculate(EMPTY_EXPRESSION), is(equalTo(0.0)));
     }
 }
